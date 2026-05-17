@@ -1,6 +1,5 @@
 package org.example;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -32,9 +31,7 @@ public class ProductService {
                 copy.add(p);
             }
         }
-
         copy.sort(Comparator.comparingDouble(Product::getDiscountPrice));
-
         if (number > copy.size()) {
             number = copy.size();
         }
