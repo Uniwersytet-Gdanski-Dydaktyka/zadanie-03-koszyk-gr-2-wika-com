@@ -3,16 +3,15 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class ProductService {
-    public Product findCheapest(List<Product> products) {
-        if (products == null || products.isEmpty()) {
+public class CartService {
+    public Product findCheapest(Cart cart) {
+        if (cart == null || cart.getProducts().isEmpty()) {
             return null;
         }
         Product cheapest = null;
-        for (Product product : products) {
-            if (product == null) {
-                continue;
-            }
+        for (Product product : cart.getProducts()) {
+            if (product == null) continue;
+
             if (cheapest == null || product.getDiscountPrice() < cheapest.getDiscountPrice()) {
                 cheapest = product;
             }
@@ -20,13 +19,13 @@ public class ProductService {
         return cheapest;
     }
 
-    public List<Product> findNCheapest(List<Product> products, int number) {
-        if (products == null || products.isEmpty()) {
+    public List<Product> findNCheapest(Cart cart, int number) {
+        if (cart == null || cart.getProducts().isEmpty()) {
             return new ArrayList<>();
         }
 // tworzymy kopię listy, aby nie zmieniać oryginalnej kolejności w koszyku
         List<Product> copy = new ArrayList<>();
-        for (Product p : products) {
+        for (Product p : cart.getProducts()) {
             if (p != null) {
                 copy.add(p);
             }
@@ -39,23 +38,22 @@ public class ProductService {
         return copy.subList(0, number);
     }
 
-    public void sort(List<Product> products, Comparator<Product> comparator) {
-        if (products == null || products.isEmpty() || comparator == null) {
+    public void sort(Cart cart, Comparator<Product> comparator) {
+        if (cart == null || cart.getProducts().isEmpty() || comparator == null) {
             return;
         }
-        products.sort(comparator);
+        cart.getProducts().sort(comparator);
     }
 
-    public double calculateTotal(List<Product> products) {
-        if (products == null || products.isEmpty()) {
+    public double calculateTotal(Cart cart) {
+        if (cart == null || cart.getProducts().isEmpty()) {
             return 0;
         }
         double sum = 0;
-        for (Product product : products) {
-            if (product == null) {
-                continue;
+        for (Product product : cart.getProducts()) {
+            if (product != null) {
+                sum += product.getDiscountPrice();
             }
-            sum += product.getDiscountPrice();
         }
         return sum;
     }

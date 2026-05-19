@@ -3,16 +3,16 @@ import java.util.List;
 
 public class FreeMugPromotion implements Promotion {
     @Override
-    public List<Product> apply(List<Product> products){
-        if (products == null) {
-            return products;
+    public List<Product> apply(Cart cart){
+        if (cart == null || cart.getProducts() == null || cart.getProducts().size() < 3) {
+            return null;
         }
-        ProductService service = new ProductService();
-        double total = service.calculateTotal(products);
+        CartService service = new CartService();
+        double total = service.calculateTotal(cart);
         if (total > 200){
             Product mug = new Product("MUG", "Kubek", 0);
-            products.add(mug);
+            cart.getProducts().add(mug);
         }
-        return products;
+        return cart.getProducts();
     }
 }

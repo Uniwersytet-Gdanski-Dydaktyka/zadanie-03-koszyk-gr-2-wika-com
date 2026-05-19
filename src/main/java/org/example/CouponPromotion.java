@@ -6,10 +6,12 @@ public class CouponPromotion implements Promotion {
         this.productCode = productCode;
     }
     @Override
-    public List<Product> apply(List<Product> products) {
-        if (products == null || products.isEmpty()) {
-            return products;
+    public List<Product> apply(Cart cart) {
+        if (cart == null || cart.getProducts() == null || cart.getProducts().size() < 3) {
+            return cart.getProducts();
         }
+        List<Product> products = cart.getProducts();
+        Product min = products.get(0);
         for (Product product : products) {
             if (product == null || product.getCode() == null) {
                 continue;

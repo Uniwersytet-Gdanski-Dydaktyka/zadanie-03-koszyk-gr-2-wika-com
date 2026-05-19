@@ -4,18 +4,21 @@ import java.util.List;
 
 public class BuyTwoGetOnePromotion implements Promotion{
     @Override
-//    przyjmuje liste zakupów i zwraca liste po promocji
-    public List<Product> apply(List<Product> products){
-        if (products == null || products.size() < 3) {
-            return products;
+    public List<Product> apply(Cart cart){
+        if (cart == null || cart.getProducts() == null || cart.getProducts().size() < 3) {
+            return cart.getProducts();
         }
-        Product min= products.getFirst();
-        for (Product product : products){
-            if(product.getDiscountPrice()<min.getDiscountPrice()){
-                min=product;
+        List<Product> products = cart.getProducts();
+        Product min = products.get(0);
+        for (Product product : products) {
+            if (product == null) {
+                continue;
+            }
+            if (product.getDiscountPrice() < min.getDiscountPrice()) {
+                min = product;
             }
         }
         min.setDiscountPrice(0);
-        return products;
+        return cart.getProducts();
     }
 }

@@ -7,12 +7,13 @@ import java.util.List;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        List<Product> products = new ArrayList<>(List.of(
-                new Product("P1", "Laptop", 3500),
-                new Product("P2", "Mysz", 100),
-                new Product("P3", "Klawiatura", 250)
-        ));
+        Cart cart = new Cart();
 
+        cart.addProduct(new Product("P1", "Laptop", 3500));
+        cart.addProduct(new Product("P2", "Mysz", 100));
+        cart.removeProduct("P2");
+
+        List<Product> products = List.of(cart.getProducts().toArray(new Product[0]));
         List<Promotion> promotions = List.of(
                 new PercentagePromotion(),
                 new BuyTwoGetOnePromotion(),
@@ -21,14 +22,14 @@ public class Main {
         );
 
         PromotionEngine engine = new PromotionEngine(promotions);
-        List<Product> finalCart = engine.applyAll(products);
+        List<Product> finalCart = engine.applyAll(List.of((Product) products));
         for (Product p : finalCart) {
             if (p != null) {
                 System.out.println(p.getName() + " " + p.getDiscountPrice());
             }
         }
-        ProductService service = new ProductService();
-        double total = service.calculateTotal(finalCart);
+        CartService service = new CartService();
+        double total = service.calculateTotal((Cart) finalCart);
         System.out.println("Suma końcowa: " + total);
     }
 }

@@ -3,12 +3,13 @@ import java.util.List;
 
 public class PercentagePromotion implements Promotion {
     @Override
-    public List<Product> apply(List<Product> products){
-        if (products == null || products.isEmpty()) {
-            return products;
+    public List<Product> apply(Cart cart){
+        if (cart == null || cart.getProducts() == null || cart.getProducts().isEmpty()) {
+            return cart.getProducts();
         }
-        ProductService service = new ProductService();
-        double total = service.calculateTotal(products);
+        CartService service = new CartService();
+        List<Product> products = cart.getProducts();
+        double total = service.calculateTotal(cart);
         if (total > 300){
             for (Product product : products){
                 if (product != null) {
