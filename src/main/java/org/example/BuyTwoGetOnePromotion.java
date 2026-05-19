@@ -4,6 +4,7 @@ import java.util.List;
 
 public class BuyTwoGetOnePromotion implements Promotion{
     @Override
+//    przyjmuje liste zakupów i zwraca liste po promocji
     public List<Product> apply(List<Product> products){
         if (products == null || products.size() < 3) {
             return products;

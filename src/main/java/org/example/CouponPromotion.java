@@ -1,7 +1,7 @@
 package org.example;
 import java.util.List;
 public class CouponPromotion implements Promotion {
-    private final String productCode;
+    private final String productCode; // nie mozna zmienic kodu
     public CouponPromotion(String productCode) {
         this.productCode = productCode;
     }

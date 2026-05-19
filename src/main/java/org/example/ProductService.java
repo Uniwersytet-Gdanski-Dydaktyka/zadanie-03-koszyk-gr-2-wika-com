@@ -31,11 +31,11 @@ public class ProductService {
                 copy.add(p);
             }
         }
-        copy.sort(Comparator.comparingDouble(Product::getDiscountPrice));
+        copy.sort(new ProductPriceComparator().reversed());
         if (number > copy.size()) {
             number = copy.size();
         }
-// podlista od 0 do 'number'
+// podlista od 0 do number
         return copy.subList(0, number);
     }
 
@@ -45,13 +45,6 @@ public class ProductService {
         }
         products.sort(comparator);
     }
-
-//    public void sort(Product[] products, Comparator<Product> comparator) {
-//        if (products == null || products.length == 0) {
-//            return;
-//        }
-//        Arrays.sort(products, comparator);
-//    }
 
     public double calculateTotal(List<Product> products) {
         if (products == null || products.isEmpty()) {

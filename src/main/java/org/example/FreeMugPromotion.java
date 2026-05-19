@@ -5,7 +5,7 @@ public class FreeMugPromotion implements Promotion {
     @Override
     public List<Product> apply(List<Product> products){
         if (products == null) {
-            return null;
+            return products;
         }
         ProductService service = new ProductService();
         double total = service.calculateTotal(products);
